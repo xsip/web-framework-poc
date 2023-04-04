@@ -18,7 +18,8 @@ export class ExampleComponent {
 	prop2 = {
 		prop3: '2'
 	}
-	bool1 = false;
+	bool1 = true;
+	bool2 = false;
 	fn1() {
 		return this.prop2.prop3;
 	}
