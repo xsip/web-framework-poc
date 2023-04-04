@@ -1,11 +1,11 @@
 import {Component} from './component.decorator';
 
 @Component({
-	selector: () => 'main',
-	template: () => require('./component.html'),
+	selector: () => 'main2',
+	template: () => require('./component2.html'),
 	style: () => require('./component.scss')
 })
-export class ExampleComponent {
+export class ExampleTwoComponent {
 	constructor() {
 		setTimeout(() => {
 				this.prop1 = 'Component1'
