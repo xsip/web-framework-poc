@@ -28,5 +28,7 @@ setInterval(() => {
 	example.prop2.prop3 = 'Component1 prop3 ' + guidGenerator();
 	// @ts-ignore
 	example.items[0].prop = guidGenerator();
+	// @ts-ignore
+	example.items[1].prop = guidGenerator();
 	// example.fn1();
 },1000)
