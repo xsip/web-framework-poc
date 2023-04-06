@@ -24,9 +24,9 @@ window.onload = async () => {
 setInterval(() => {
 
 	example.prop1 = 'Component1 ' +guidGenerator();
-	example2.prop1 = 'Component2 ' +guidGenerator();
-	example.prop2.prop3 = 'Component1 ' + guidGenerator();
+	// example2.prop1 = 'Component2 ' +guidGenerator();
+	example.prop2.prop3 = 'Component1 prop3 ' + guidGenerator();
 	// @ts-ignore
 	example.items[0].prop = guidGenerator();
-	example.fn1();
+	// example.fn1();
 },1000)

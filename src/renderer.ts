@@ -15,13 +15,13 @@ export async function render<T extends ComponentOptions>(instance: T) {
 		const items: any[] = instance[of as keyof typeof instance] as any[];
 		console.log(fixedVar, item, of, items);
 		const bindingId= guidGenerator();
-		template = template.replace(templateVar, `component-id="${instance.selector()}" binding-id="${bindingId}"`);
+		template = template.replace(templateVar, `${templateVar} component-id="${instance.selector()}" binding-id="${bindingId}"`);
 		const innerHtml = template.match(new RegExp(`<(.*?) binding-id="${bindingId}">(.*?)</(.*?)>`))[0];
 		let index = template.indexOf(innerHtml) + innerHtml.length;
 		template = template.replace(innerHtml, '');
 		for(const _item in items) {
 			template = [template.slice(0, index), innerHtml.replace(new RegExp(`\\{\\{${item}.(.*?)\\}\\}`),`{{${of}[${_item
-			}].$1}}`).replace(templateVar, `component-id="${instance.selector()}" binding-id="${guidGenerator()}"`), template.slice(index)].join('');
+			}].$1}}`).replace(`binding-id="${bindingId}"`, `binding-id="${guidGenerator()}"`), template.slice(index)].join('');
 
 			index+= innerHtml.length;
 		}

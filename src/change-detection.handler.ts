@@ -20,11 +20,12 @@ class ChangeDetectionHandler<T extends Record<string, unknown>> {
 	get(instance: T, instanceProperty: keyof T): any {
 		this.onChanges(this.rootInstance, [this.buildPropertyChangePath(instanceProperty)] as any as keyof T[]);
 		const propValue: ChangeDetectionHandler<any> = instance[instanceProperty] as any as ChangeDetectionHandler<any>;
-		if (typeof propValue === 'object' && !propValue.isChildProxy) {
+		if (typeof propValue === 'object'  && !propValue.isChildProxy) {
 			return addDetector(
 				instance[instanceProperty] as any,
 				true,
-				`${this.prependPath ? this.prependPath + '.' : ''}${instanceProperty as any}`,
+				// @ts-ignore
+				`${this.prependPath ? this.prependPath + '[' : ''}${typeof parseInt(instanceProperty as any) === 'number' ? instanceProperty : `'${instanceProperty}'`}${this.prependPath ? ']' : ''}`,
 				this.instanceName,
 				this.rootInstance
 			);
@@ -37,11 +38,15 @@ class ChangeDetectionHandler<T extends Record<string, unknown>> {
 
 	set(instance: T, instanceProperty: keyof T, value: any): any {
 		instance[instanceProperty] = value;
+		console.log(this.prependPath, instanceProperty);
 		if (typeof value === 'object' && !(value as ChangeDetectionHandler<any>).isChildProxy) {
 			instance[instanceProperty] = addDetector(
 				value,
 				true,
-				`${this.prependPath ? this.prependPath + '.' : ''}${instanceProperty as any}`,
+				// @ts-ignore
+
+				`${this.prependPath ? this.prependPath + '[' : ''}${typeof parseInt(instanceProperty as any) === 'number' ? instanceProperty : `'${instanceProperty}'`}${this.prependPath ? ']' : ''}`,
+				// `${this.prependPath ? this.prependPath + '.' : ''}${instanceProperty as any}`,
 				this.instanceName,
 				this.rootInstance
 			) as any;
