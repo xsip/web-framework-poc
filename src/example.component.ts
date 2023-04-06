@@ -23,4 +23,5 @@ export class ExampleComponent {
 	fn1() {
 		return this.prop2.prop3;
 	}
+	items = [{prop: 1}, {prop:2}];
 }
