@@ -81,10 +81,23 @@ function globalOnChanges<T extends ComponentOptions>(instance: T, changedVars: s
 			if(prop.path.includes('.')) {
 				varInstance = instance as any;
 				prop.path.split('.').forEach((path: string) => {
-					varInstance = varInstance[path as keyof  typeof varInstance] as any;
+					const match = path.match(/\[(.*?)\]/g)
+					varInstance = varInstance[path.replace(/\[(.*?)\]/g,'') as keyof  typeof varInstance] as any;
+					if(match) {
+						console.log(varInstance,path,path.replace(/\[(.*?)\]/g,''));
+						const index = parseInt(match[0].replace(/\[(.*?)\]/g,'$1'));
+						// @ts-ignore
+
+						// @ts-ignore
+						varInstance = varInstance[index] as any
+						// @ts-ignore
+						console.log(index, varInstance['prop']);
+					}
+
+					/*varInstance = varInstance[path as keyof  typeof varInstance] as any;
 					if(typeof varInstance === 'function') {
 						varInstance = varInstance();
-					}
+					}*/
 				})
 			}
 			if(typeof varInstance === 'function') {
