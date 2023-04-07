@@ -1,18 +1,19 @@
 import 'reflect-metadata';
 import {metaDataStore} from './metadata-store';
 import {guidGenerator} from './utils';
-import {render} from './renderer';
+import {register, render} from './renderer';
 import {ExampleComponent} from './example.component';
 import {ExampleTwoComponent} from './example-two.component';
 
-
-const example = new ExampleComponent();
+register([ExampleTwoComponent, ExampleComponent]);
+// @ts-ignore
+window.gci = metaDataStore.getComponentInstance.bind(metaDataStore);
+/*const example = new ExampleComponent();
 const example2 = new ExampleTwoComponent();
 
 
 
-// @ts-ignore
-window.gci = metaDataStore.getComponentInstance.bind(metaDataStore);
+
 
 window.onload = async () => {
 
@@ -32,3 +33,4 @@ setInterval(() => {
 	example.items[1].prop = guidGenerator();
 	// example.fn1();
 },1000)
+*/

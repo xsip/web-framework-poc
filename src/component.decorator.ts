@@ -14,6 +14,8 @@ export function Component(options: ComponentOptions): any {
 			style: () => Promise<string>;
 			template: () => Promise<string>;
 			selector: () => string;
+			_template: string;
+			_selector: string;
 			id: string;
 			constructor(...args: any[]) {
 				super(...args);
@@ -22,7 +24,6 @@ export function Component(options: ComponentOptions): any {
 				this.id = guidGenerator();
 				this.template = options.template;
 				this.selector = options.selector;
-
 				return addDetector(this, false,undefined, this.selector(), this)
 			}
 		}
